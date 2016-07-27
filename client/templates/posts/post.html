@@ -1,0 +1,11 @@
+<template name="post">
+  	<div class="col-md-12">
+  		<small>作者：{{ username }} 时间：{{ createdAt }}</small>
+  		<p class="post_body">{{ body }}</p>
+  		{{#if currentUser }}
+	  		<button class="btn btn-primary update">编辑</button>
+	  		<button class="btn btn-primary remove">删除</button>
+  		{{/if}}
+	  		<!-- {{> quickForm collection="Posts" doc=this id="updatePostForm" type="update"}} -->
+  	</div>
+</template>

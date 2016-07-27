@@ -1,0 +1,33 @@
+<template name="posts">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    新建帖子
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">新建帖子</h4>
+        </div>
+        <div class="modal-body">
+          {{# autoForm collection="Posts" id="insertPostForm" type="insert"}}
+           {{> afQuickField name='body' rows=4 autofocus='' id="postBody" }}
+          <button type="submit" class="btn btn-primary">保存</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          {{/autoForm}}
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{> pagesNav}}  <!--Bottom navigation-->
+  <div class="row">
+    {{> pages}}
+  </div>
+
+</template>
