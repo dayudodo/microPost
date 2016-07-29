@@ -17,14 +17,26 @@ Template.post.events({
 		updateInput.focus()
 		updateInput.select()
 	},
-	'keyup .update_post'(e){
+	'keyup .update_post'(e, instance){
+		var value = instance.state.get('bodyValue')
 		if (e.keyCode == 13) {
 			console.log(e.target.value)
 			// Posts.update(this._id, e.target.value)
-			Meteor.call('posts.update', this._id, e.target.value)
-			$(e.target).remove()
+			if (_.isEmpty(e.target.value) ) {
+				toastr.error('不能为空')
+			}else{
+				Meteor.call('posts.update', this._id, e.target.value, function(err,result){
+					if (err) { 
+						e.target.value = value;
+						toastr.error(err.message, '更新失败');
+					} else {
+						toastr.success("成功更新");
+						$(e.target).remove()
+					}
+				})
+			}
 		}
-		if (e.keyCode == 27) {
+		if (e.keyCode == 27 ) {
 			let instance = Template.instance()
 			let bodyvalue = instance.state.get('bodyValue')
 			$(e.target).parent().html(bodyvalue)
