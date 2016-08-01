@@ -6,7 +6,19 @@ import './post.html'
 Template.post.onCreated(function(){
 	this.state= new ReactiveDict();
 })
-
+Template.post.helpers({
+	cnDate(){
+		return moment(this.createdAt).format('YYYY年MM月DD日 HH:mm:ss')
+	},
+	currentPost(){
+		// console.log(this)
+		let cp = Posts.findOne({_id: this._id})
+		return cp;
+	},
+	makeUniqueID(){
+		return "update-each-" + this._id;
+	}
+})
 Template.post.events({
 	'dblclick .post_body'(e, instance){
 		console.log(this.body)
@@ -37,14 +49,15 @@ Template.post.events({
 			}
 		}
 		if (e.keyCode == 27 ) {
-			let instance = Template.instance()
+			// let instance = Template.instance()
 			let bodyvalue = instance.state.get('bodyValue')
 			$(e.target).parent().html(bodyvalue)
 		}
 	},
-	'click .update'(e, i){
-		let post_body = $(e.target).siblings().filter('.post_body')
-		post_body.trigger('dblclick')
+	'click .update'(e, instance){
+		//留下这个的意思其实就是为了说明如果通过事件来触发双击编辑模式
+		let post_body = instance.find('.post_body')
+		$(post_body).trigger('dblclick')
 	},
 	'click .remove'(e){
 		if (confirm('确实要删除么？')) {

@@ -15,6 +15,7 @@
         <div class="modal-body">
           {{# autoForm collection="Posts" id="insertPostForm" type="insert"}}
            {{> afQuickField name='body' rows=4 autofocus='' id="postBody" }}
+           {{> upload_bootstrap callbacks=myCallbacks args='abc'}}
           <button type="submit" class="btn btn-primary">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
           {{/autoForm}}
